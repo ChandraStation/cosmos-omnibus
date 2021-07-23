@@ -29,11 +29,11 @@ RUN apt-get update && \
   apt-get install --no-install-recommends --assume-yes ca-certificates curl wget file unzip gnupg2 jq && \
   apt-get clean
 
-ARG PROJECT=akash
+ARG PROJECT=flixnet
 ARG PROJECT_BIN=$PROJECT
 ARG PROJECT_DIR=.$PROJECT_BIN
-ARG VERSION=v0.12.1
-ARG REPOSITORY=https://github.com/ovrclk/akash.git
+ARG VERSION=v0.1.0
+ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
 ARG NAMESPACE
 
 ENV PROJECT=$PROJECT
