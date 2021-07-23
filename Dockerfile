@@ -11,10 +11,10 @@ RUN unzip awscliv2.zip -d /usr/src
 
 FROM build AS project
 
-ARG PROJECT=akash
+ARG PROJECT=flixnet
 ARG PROJECT_BIN=$PROJECT
-ARG VERSION=v0.12.1
-ARG REPOSITORY=https://github.com/ovrclk/akash.git
+ARG VERSION=v0.1.0
+ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
 
 RUN git clone $REPOSITORY /data
 WORKDIR /data
