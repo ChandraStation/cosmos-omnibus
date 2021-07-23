@@ -11,7 +11,7 @@ RUN unzip awscliv2.zip -d /usr/src
 
 FROM build AS project
 
-ARG PROJECT=flixnet
+ARG PROJECT=omniflixhubd
 ARG PROJECT_BIN=$PROJECT
 ARG VERSION=v0.1.0
 ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
@@ -29,7 +29,7 @@ RUN apt-get update && \
   apt-get install --no-install-recommends --assume-yes ca-certificates curl wget file unzip gnupg2 jq && \
   apt-get clean
 
-ARG PROJECT=flixnet
+ARG PROJECT=omniflixhubd
 ARG PROJECT_BIN=$PROJECT
 ARG PROJECT_DIR=.$PROJECT_BIN
 ARG VERSION=v0.1.0
