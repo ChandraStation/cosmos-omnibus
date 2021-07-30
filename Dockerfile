@@ -12,10 +12,11 @@ RUN unzip awscliv2.zip -d /usr/src
 FROM build AS project
 
 ARG PROJECT=omniflixhub
-ARG PROJECT_BIN=omniflixhubd
+ARG PROJECT_BIN=$PROJECT
 ARG VERSION=v0.1.0
-ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
+ARG REPOSITORY=https://github.com/OmniFlix/omniflixhub.git
 
+# Clone and build project
 RUN git clone $REPOSITORY /data
 WORKDIR /data
 RUN git checkout $VERSION
@@ -30,16 +31,17 @@ RUN apt-get update && \
   apt-get clean
 
 ARG PROJECT=omniflixhub
-ARG PROJECT_BIN=omniflixhubd
-ARG PROJECT_DIR=.omniflixhub
+ARG PROJECT_BIN=$PROJECT
+ARG PROJECT_DIR=.$PROJECT_BIN
 ARG VERSION=v0.1.0
-ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
+ARG WASMVM_VERSION=main
+ARG REPOSITORY=https://github.com/OmniFlix/omniflixhub.git
 ARG NAMESPACE
 
-ENV PROJECT=omniflixhub
-ENV PROJECT_BIN=omniflixhubd
-ENV PROJECT_DIR=.omniflixhub
-ENV VERSION=v0.1.0
+ENV PROJECT=$PROJECT
+ENV PROJECT_BIN=$PROJECT_BIN
+ENV PROJECT_DIR=$PROJECT_DIR
+ENV VERSION=$VERSION
 ENV REPOSITORY=$REPOSITORY
 ENV NAMESPACE=$NAMESPACE
 
@@ -54,6 +56,7 @@ EXPOSE 26656 \
 COPY --from=project /bin/$PROJECT_BIN /bin/$PROJECT_BIN
 COPY --from=aws /usr/src/aws /usr/src/aws
 RUN /usr/src/aws/install --bin-dir /usr/bin
+ADD https://raw.githubusercontent.com/CosmWasm/wasmvm/$WASMVM_VERSION/api/libwasmvm.so /lib/libwasmvm.so
 
 COPY run.sh /usr/bin/
 RUN chmod +x /usr/bin/run.sh
