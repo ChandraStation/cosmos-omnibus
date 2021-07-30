@@ -11,8 +11,8 @@ RUN unzip awscliv2.zip -d /usr/src
 
 FROM build AS project
 
-ARG PROJECT=omniflixhubd
-ARG PROJECT_BIN=$PROJECT
+ARG PROJECT=omniflixhub
+ARG PROJECT_BIN=omniflixhubd
 ARG VERSION=v0.1.0
 ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
 
@@ -36,10 +36,10 @@ ARG VERSION=v0.1.0
 ARG REPOSITORY=https://github.com/Omniflix/omniflixhub.git
 ARG NAMESPACE
 
-ENV PROJECT=$PROJECT
-ENV PROJECT_BIN=$PROJECT_BIN
-ENV PROJECT_DIR=$PROJECT_DIR
-ENV VERSION=$VERSION
+ENV PROJECT=omniflixhub
+ENV PROJECT_BIN=omniflixhubd
+ENV PROJECT_DIR=.omniflixhub
+ENV VERSION=v0.1.0
 ENV REPOSITORY=$REPOSITORY
 ENV NAMESPACE=$NAMESPACE
 
