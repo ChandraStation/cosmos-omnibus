@@ -18,6 +18,7 @@ ARG REPOSITORY=https://github.com/faddat/dig
 # Clone and build project
 RUN git clone $REPOSITORY /data
 WORKDIR /data
+RUN cd dig
 RUN go mod tidy
 RUN cd cmd/digd
 RUN go install .
