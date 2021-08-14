@@ -11,37 +11,34 @@ RUN unzip awscliv2.zip -d /usr/src
 
 FROM build AS project
 
-ARG PROJECT=omniflixhub
-ARG PROJECT_BIN=$PROJECT
-ARG VERSION=v0.1.0
-ARG REPOSITORY=https://github.com/OmniFlix/omniflixhub.git
+ARG PROJECT=dig
+ARG PROJECT_BIN=digd
+ARG REPOSITORY=https://github.com/faddat/dig
 
 # Clone and build project
 RUN git clone $REPOSITORY /data
 WORKDIR /data
-RUN git checkout $VERSION
-RUN make install
+RUN go mod tidy
+RUN cd cmd/digd
+RUN go install .
 RUN mv $GOPATH/bin/$PROJECT_BIN /bin/$PROJECT_BIN
 
 FROM debian:buster
-LABEL org.opencontainers.image.source https://github.com/ovrclk/cosmos-omnibus
 
 RUN apt-get update && \
   apt-get install --no-install-recommends --assume-yes ca-certificates curl wget file unzip gnupg2 jq && \
   apt-get clean
 
-ARG PROJECT=omniflixhub
-ARG PROJECT_BIN=$PROJECT
-ARG PROJECT_DIR=.$PROJECT_BIN
-ARG VERSION=v0.1.0
+ARG PROJECT=dig
+ARG PROJECT_BIN=digd
+ARG PROJECT_DIR=.dig
 ARG WASMVM_VERSION=main
-ARG REPOSITORY=https://github.com/OmniFlix/omniflixhub.git
+ARG REPOSITORY=https://github.com/faddat/dig
 ARG NAMESPACE
 
 ENV PROJECT=$PROJECT
 ENV PROJECT_BIN=$PROJECT_BIN
 ENV PROJECT_DIR=$PROJECT_DIR
-ENV VERSION=$VERSION
 ENV REPOSITORY=$REPOSITORY
 ENV NAMESPACE=$NAMESPACE
 
